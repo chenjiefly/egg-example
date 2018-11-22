@@ -1,0 +1,19 @@
+'use strict';
+
+// options === app.config.robot
+// 在终端中执行下面命令可以模拟爬虫
+// curl http://30.38.44.87:7001/news -A "Baiduspider"
+// module.exports = (options, app) => {
+module.exports = options => {
+  return async function robotMiddleware(ctx, next) {
+    const source = ctx.get('user-agent') || '';
+    const match = options.ua.some(ua => ua.test(source));
+
+    if (match) {
+      ctx.status = 403;
+      ctx.message = 'Go away, robot.';
+    } else {
+      await next();
+    }
+  };
+};
