@@ -2,6 +2,7 @@
 
 const Controller = require('egg').Controller;
 
+// 访问地址：http://127.0.0.1:7001/news?page=1
 class NewsController extends Controller {
   async list() {
     const ctx = this.ctx;
